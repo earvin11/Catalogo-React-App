@@ -1,10 +1,12 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+
 import { AuthContext } from '../../auth/authContext';
 import { fetchSinToken } from '../../helpers/fetch';
 import { types } from '../../types/types';
 import { Loader } from '../loader/Loader';
+
 import './login.css';
 
 export const LoginScreen = () => {
@@ -35,10 +37,13 @@ export const LoginScreen = () => {
         setLoading(true);
        
         try {
-            const resp = await fetchSinToken('http://localhost:4000/api/auth/login', loginValues, 'POST');
+            const resp = await fetchSinToken('http://10.91.37.212:4000/api/auth/login', loginValues, 'POST');
             const data = await resp.json();
 
             if( data.ok ) {
+
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('rol', data.usuario.rol);
 
                 const action = {
                     type: types.login,
@@ -49,13 +54,14 @@ export const LoginScreen = () => {
         
                 dispatch( action );
         
-                navigate('/')
+                navigate('/');
             
             }else{
                 Swal.fire('Error', data.msg, 'error');
             }
         } catch (error) {
             Swal.fire('Error', 'Hable con el administrador', 'error');
+
         }
 
             setLoading(false);

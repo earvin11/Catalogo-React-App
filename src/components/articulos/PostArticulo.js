@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import { fetchSinToken } from "../../helpers/fetch";
+import { fetchConToken } from "../../helpers/fetch";
 import { Loader } from "../loader/Loader";
 
 
@@ -23,7 +23,7 @@ export const PostArticulo = () => {
     const { nombre, categoria, descripcion } = formValues;
 
     useEffect( () => {
-        fetch('http://localhost:4000/api/categorias')
+        fetch('http://10.91.37.212:4000/api/categorias')
             .then( resp => resp.json())
             .then( ({ categorias }) => {
                 setCategory([
@@ -55,7 +55,7 @@ export const PostArticulo = () => {
         setLoading(true);
 
         try {
-            const resp = await fetchSinToken('http://localhost:4000/api/articulos', formValues, 'POST');
+            const resp = await fetchConToken('http://10.91.37.212:4000/api/articulos', formValues, 'POST');
             const data = await resp.json();
             if( data.ok ) {
                 

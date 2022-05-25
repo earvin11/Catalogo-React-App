@@ -10,7 +10,7 @@ export const Navbar = () => {
 
     const navigate = useNavigate();
 
-    console.log(user)
+    const rol = localStorage.getItem('rol');
 
     const handleLogout = () => {
         
@@ -19,6 +19,9 @@ export const Navbar = () => {
         }
         
         dispatch(action);
+
+        localStorage.clear();
+
         navigate('/login');
 
     }
@@ -40,6 +43,12 @@ export const Navbar = () => {
 
             <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
                 <ul className="navbar-nav ml-auto">
+                    
+                    {
+                        ( rol === 'ADMIN_ROLE' )
+                            && <Link className='nav-link mx-4' to="/register">Nuevo Usuario</Link>
+                    }
+                    
                     <span className="nav-item nav-link text-info mx-4">{ user.name }</span>
                     <button
                         className="btn btn-danger"

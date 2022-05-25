@@ -5,7 +5,7 @@ export const SelectCategoria = () => {
     const [optionValues, setOptionValue] = useState([])
 
     useEffect( () =>{
-        fetch( 'http://localhost:4000/api/categorias')
+        fetch( 'http://10.91.37.212:4000/api/categorias')
             .then( resp => resp.json())
             .then( ({ categorias }) => {
                 setOptionValue([

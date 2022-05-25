@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
+
 import { Loader } from "../loader/Loader";
 
 
@@ -25,24 +26,39 @@ export const PutArchivo = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
 
-            setLoading(true);
+        if( formData === {} ) {
+            return navigate(-1);
+        }
 
-            fetch(`http://localhost:4000/api/uploads/articulos/${ id }`, {
-                    method: 'PUT',
-                    body: formData
-                }).then( resp => resp.json())
-                    .then( data => {
-                        if( data.ok ) {
-                            Swal.fire('','Trabajo realizado correctamente', 'success');
+        setLoading(true);
 
-                            navigate(-1);
-                        
-                        }else{
-                            Swal.fire('Error', 'data.msg', 'error');
-                        }
-                    });
+        fetch(`http://10.91.37.212:4000/api/uploads/articulos/${ id }`, {
+                method: 'PUT',
+                body: formData
+            }).then( resp => resp.json())
+                .then( data => {
+                    if( data.ok ) {
+                        Swal.fire('','Trabajo realizado correctamente', 'success');
+                        navigate(-1);
+                    
+                    }else{
+                        Swal.fire('Error', data.msg, 'error');
+                    }
+                });
+
+            // const resp = await fetchConToken(`http://localhost:4000/api/articulos/${ id }`, formData, 'PUT');
+            // const data = await resp.json();
+
+            // if( data.ok ) {
+            //     Swal.fire('','Trabajo realizado correctamente', 'success');
+
+            //     navigate(-1);
+            
+            // }else{
+            //     Swal.fire('Error', data.msg, 'error');
+            // }
     
-                setLoading(false);
+        setLoading(false);
         
     }
     
@@ -51,11 +67,12 @@ export const PutArchivo = () => {
             {
                 ( loading )
                     ? <Loader />
-                    : <form className="post" onSubmit={handleSubmit}>
+                    : <form className="post" onSubmit={ handleSubmit }>
                             <h2 className=" text-center badge bg-success my-3"> Subir imagen </h2>
                             <input
                                 className="form form-control mb-3"
                                 type="file"
+                                multiple
                                 name="archivo"
                                 onChange={ handleFileChange }
                             />
@@ -63,15 +80,16 @@ export const PutArchivo = () => {
                             <div className="d-grid gap-2">
                                 <button
                                     className="btn btn-primary mb-3"
+                                    onClick={ handleSubmit }
                                 >
                                     Guardar
                                 </button>
-                                {/* <button
+                                <button
                                     className="btn btn-outline-success mb-3"
-                                    onClick={ navigate(-1) }
+                                    onClick={ navigate('/post-articles') }
                                 >
                                     Omitir
-                                </button> */}
+                                </button>
                             </div>
 
                         </form>     

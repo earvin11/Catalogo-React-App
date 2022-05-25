@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
-import { fetchSinToken } from "../../helpers/fetch";
+import { fetchConToken, fetchSinToken } from "../../helpers/fetch";
 
 
 export const FormApp = () => {
@@ -9,10 +9,12 @@ export const FormApp = () => {
     const [formValues, setFormValues] = useState({
         nombre: '',
         apellido: '',
-        password: ''
+        nick: '',
+        password: '',
+        rol: ''
     });
 
-    const { nombre, apellido, password } = formValues;
+    const { nombre, apellido, nick, password, rol } = formValues;
 
     const handleInputChange = (e) => {
         setFormValues({
@@ -26,7 +28,9 @@ export const FormApp = () => {
         setFormValues({
             nombre: '',
             apellido: '',
-            password: ''
+            nick: '',
+            password: '',
+            rol: ''
         });
     }
 
@@ -36,7 +40,7 @@ export const FormApp = () => {
 
         try {
 
-            const resp = await fetchSinToken('http://localhost:4000/api/usuarios', formValues, 'POST');
+            const resp = await fetchConToken('http://10.91.37.212:4000/api/usuarios', formValues, 'POST');
             const data = await resp.json();
 
             if( data.ok ) {
@@ -64,26 +68,49 @@ export const FormApp = () => {
         <div>
             <form onSubmit={ submitForm }>
                 <input
-                    className="form form-control"
+                    className="form form-control my-2"
                     name="nombre"
                     value={ nombre }
                     onChange= { handleInputChange }
-                    placeholder="Nombre" 
+                    placeholder="Nombre"
+                    required 
                 />
                 <input
-                    className="form form-control"
+                    className="form form-control my-2"
                     name="apellido"
                     value={ apellido }
                     onChange= { handleInputChange }
-                    placeholder="Apellido" 
+                    placeholder="Apellido"
+                    required 
                 />
                 <input
-                    className="form form-control"
+                    className="form form-control my-2"
+                    name="nick"
+                    value={ nick }
+                    onChange= { handleInputChange }
+                    placeholder="Nombre de usuario"
+                    required 
+                />
+                <input
+                    className="form form-control my-2"
                     name="password"
                     value={ password }
                     onChange= { handleInputChange }
-                    placeholder="Password" 
+                    placeholder="Password"
+                    required 
                 />
+
+                <select
+                    className="form form-control my-2"
+                    name="rol"
+                    value={ rol }
+                    onChange={ handleInputChange }
+                    required
+                >
+                    <option value="">Seleccione una opcion:</option>
+                    <option value="ADMIN_ROLE">Administrador</option>
+                    <option value="USER_ROLE">Usuario</option>
+                </select>
 
                 <div className="d-grid gap-2">
                     <button

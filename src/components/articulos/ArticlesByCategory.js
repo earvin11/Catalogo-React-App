@@ -16,7 +16,7 @@ export const ArticlesByCategory = () => {
     const { id } = useParams();
 
     useEffect( () => {
-        fetch(`http://localhost:4000/api/buscar/${ id }`)
+        fetch(`http://10.91.37.212:4000/api/buscar/${ id }`)
             .then( resp => resp.json())
             .then( ({ articulos, total }) => {
                 setArticulos([
@@ -26,7 +26,7 @@ export const ArticlesByCategory = () => {
                 setTotalArticles( total );
             });
 
-        fetch('http://localhost:4000/api/categorias')
+        fetch('http://10.91.37.212:4000/api/categorias')
             .then( resp => resp.json())
             .then( ({categorias}) => {
                 setCategory([

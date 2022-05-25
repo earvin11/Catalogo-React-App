@@ -8,6 +8,7 @@ import { PostArticulo } from "../components/articulos/PostArticulo"
 import { PutArchivo } from "../components/articulos/PutArchivo"
 import { UpdateArticle } from "../components/articulos/UpdateArticle"
 import { Navbar } from "../components/ui/Navbar"
+import { FormApp } from "../components/useState/FormApp"
 
 
 
@@ -27,6 +28,7 @@ export const DashboardRoutes = () => {
                     <Route path="post-articles" element={ <PostArticulo /> } />
                     <Route path="put-archivo/:id" element={ <PutArchivo /> } />
                     <Route path="update-articles/:id" element={ <UpdateArticle /> } />
+                    <Route path="register" element={ <FormApp /> } />
                 </Routes>
 
             </div>

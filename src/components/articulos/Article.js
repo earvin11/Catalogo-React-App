@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router"
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { fetchSinToken } from "../../helpers/fetch";
+import { fetchConToken, fetchSinToken } from "../../helpers/fetch";
 
 
 export const Article = () => {
@@ -18,11 +18,11 @@ export const Article = () => {
     const { id } = useParams();
 
     useEffect( () => {
-        fetch(`http://localhost:4000/api/articulos/${ id }`)
+        fetch(`http://10.91.37.212:4000/api/articulos/${ id }`)
             .then( resp => resp.json())
             .then( data => setArticulo({...data}));
 
-        fetch(`http://localhost:4000/api/uploads/articulos/${ id }`)
+        fetch(`http://10.91.37.212:4000/api/uploads/articulos/${ id }`)
         .then( ({ url }) => setImg({
             ...img,
             url
@@ -37,7 +37,7 @@ export const Article = () => {
     }
 
     const deleteArticle = async() => {
-        const resp = await fetchSinToken(`http://localhost:4000/api/articulos/${ id }`, {}, 'DELETE');
+        const resp = await fetchConToken(`http://10.91.37.212:4000/api/articulos/${ id }`, {}, 'DELETE');
         const data = await resp.json();
 
         if( data.ok ) {

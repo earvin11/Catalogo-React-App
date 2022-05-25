@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import { CardArticulo } from "./CardArticlo";
+import { Loader } from "../loader/Loader";
 
 
 export const ArtcileByName = () => {
 
-    const navigate = useNavigate();
-    const location = useLocation();
-
     const [articles, setArticles] = useState([]);
     
     const [ totalAtricles, setTotalArticles ] = useState(null);
+
+    const [loading, setLoading] = useState(false);
 
     const [formValues, setFormValues] = useState({
         nombre: ''
@@ -26,21 +27,26 @@ export const ArtcileByName = () => {
 
     const handleSearch = async(e) => {
         e.preventDefault();
+
+        setLoading(true);
+            
+            fetch('http://10.91.37.212:4000/api/buscar/', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify( formValues )
+            })
+                .then( resp => resp.json())
+                .then( ({total, articulos}) => {
+                    setArticles([
+                        ...articulos
+                    ])
+                    setTotalArticles( total );
+                });
+    
+            setLoading(false);
         
-        fetch('http://localhost:4000/api/buscar/', {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify( formValues )
-        })
-            .then( resp => resp.json())
-            .then( ({total, articulos}) => {
-                setArticles([
-                    ...articulos
-                ])
-                setTotalArticles( total );
-            });
     }
 
     return (
@@ -76,26 +82,34 @@ export const ArtcileByName = () => {
                 </div>
 
                 <div className="col-7">
-                    <h4 className="">Resultados: <span className="text-info">{ totalAtricles }</span></h4>
-                    <hr/>
-
-                    {   //si no se ha buscado nada
-                        ( nombre === '' )&&
-                            //regresa esto
-                             <div className="alert alert-info">Buscar un artículo</div>
-                    }
-
                     {
-                        articles.map(article => (
-                            <CardArticulo
-                                id={ article._id } 
-                                nombre={ article.nombre } 
-                                descripcion={ article.descripcion }
-                                categoria={ article.categoria.nombre }
-                                key={ article._id }
-                            />
-                        ))
-                    }
+                        (loading)
+                            ? <Loader />
+                            : <>
+                                <h4 className="">Resultados: <span className="text-info">{ totalAtricles }</span></h4>
+                                <hr/>
+
+                                {/* {   //si no se ha buscado nada
+                                    ( nombre === '' )&&
+                                        //regresa esto
+                                        <div className="alert alert-info">Buscar un artículo</div>
+                                } */}
+
+                                {
+                                    (articles.length ===0)
+                                        ? <div className="alert alert-danger">No hay resultados: { nombre }</div>
+                                        : articles.map(article => (
+                                            <CardArticulo
+                                                id={ article._id } 
+                                                nombre={ article.nombre } 
+                                                descripcion={ article.descripcion }
+                                                categoria={ article.categoria.nombre }
+                                                key={ article._id }
+                                      />                                  
+                                    ))
+                                }
+                            </>
+                    }            
                     
                 </div>
             </div>
