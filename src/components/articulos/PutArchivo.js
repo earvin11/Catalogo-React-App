@@ -26,10 +26,6 @@ export const PutArchivo = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
 
-        if( formData === {} ) {
-            return navigate(-1);
-        }
-
         setLoading(true);
 
         fetch(`http://10.91.37.212:4000/api/uploads/articulos/${ id }`, {
@@ -80,16 +76,15 @@ export const PutArchivo = () => {
                             <div className="d-grid gap-2">
                                 <button
                                     className="btn btn-primary mb-3"
-                                    onClick={ handleSubmit }
                                 >
                                     Guardar
                                 </button>
-                                <button
+                                {/* <button
                                     className="btn btn-outline-success mb-3"
                                     onClick={ navigate('/post-articles') }
                                 >
                                     Omitir
-                                </button>
+                                </button> */}
                             </div>
 
                         </form>     

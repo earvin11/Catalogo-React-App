@@ -99,8 +99,6 @@ export const UpdateArticle = () => {
             console.log(error);
         }
 
-        console.log(e.target);
-
         setLoading(false);
     }
 
