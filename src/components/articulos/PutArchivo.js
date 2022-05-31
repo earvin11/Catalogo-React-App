@@ -16,10 +16,10 @@ export const PutArchivo = () => {
 
     const formData = new FormData();
 
+    const token = localStorage.getItem('token') || '';
+
     const handleFileChange = (e) => {
-        formData.append('archivo', e.target.files[0]);
-        // const { file } = archivo;
-        
+        formData.append('archivo', e.target.files[0]);      
     }
 
     
@@ -30,7 +30,10 @@ export const PutArchivo = () => {
 
         fetch(`http://10.91.37.212:4000/api/uploads/articulos/${ id }`, {
                 method: 'PUT',
-                body: formData
+                headers:{
+                    'x-token': token
+                },
+                body: formData 
             }).then( resp => resp.json())
                 .then( data => {
                     if( data.ok ) {
@@ -42,21 +45,9 @@ export const PutArchivo = () => {
                     }
                 });
 
-            // const resp = await fetchConToken(`http://localhost:4000/api/articulos/${ id }`, formData, 'PUT');
-            // const data = await resp.json();
-
-            // if( data.ok ) {
-            //     Swal.fire('','Trabajo realizado correctamente', 'success');
-
-            //     navigate(-1);
-            
-            // }else{
-            //     Swal.fire('Error', data.msg, 'error');
-            // }
-    
         setLoading(false);
-        
-    }
+
+}
     
     return (
         <>
@@ -68,7 +59,6 @@ export const PutArchivo = () => {
                             <input
                                 className="form form-control mb-3"
                                 type="file"
-                                multiple
                                 name="archivo"
                                 onChange={ handleFileChange }
                             />
@@ -79,12 +69,6 @@ export const PutArchivo = () => {
                                 >
                                     Guardar
                                 </button>
-                                {/* <button
-                                    className="btn btn-outline-success mb-3"
-                                    onClick={ navigate('/post-articles') }
-                                >
-                                    Omitir
-                                </button> */}
                             </div>
 
                         </form>     

@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
-import { fetchConToken, fetchSinToken } from "../../helpers/fetch";
+import { fetchConToken } from "../../helpers/fetch";
 
 
-export const FormApp = () => {
+export const NewUser = () => {
 
     const [formValues, setFormValues] = useState({
         nombre: '',
@@ -36,7 +35,6 @@ export const FormApp = () => {
 
     const submitForm = async(e) => {
         e.preventDefault();
-        console.log( formValues );
 
         try {
 
@@ -45,7 +43,7 @@ export const FormApp = () => {
 
             if( data.ok ) {
                 Swal.fire({
-                    position: 'top-end',
+                    position: 'center',
                     icon: 'success',
                     title: 'Usuario creado',
                     showConfirmButton: false,
@@ -92,6 +90,7 @@ export const FormApp = () => {
                     required 
                 />
                 <input
+                    type="password"
                     className="form form-control my-2"
                     name="password"
                     value={ password }

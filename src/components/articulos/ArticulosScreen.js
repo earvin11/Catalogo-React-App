@@ -19,7 +19,7 @@ export const GetArticles = () => {
     useEffect( () => {      
 
             
-            fetch('http://10.91.37.212:4000/api/articulos')
+            fetch(`http://10.91.37.212:4000/api/articulos`)
                 .then( resp => resp.json())
                 .then( ({ articulos, total }) => {
                     setArticulos([
@@ -93,7 +93,9 @@ export const GetArticles = () => {
                             }
 
                         </div>
+
                     </div>
+
             }
                         
         </>

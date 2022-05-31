@@ -26,6 +26,8 @@ export const UpdateArticle = () => {
 
     const { nombre, categoria, descripcion } = formValues;
 
+    const token = localStorage.getItem('token') || '';
+
     useEffect( () => {
 
         fetch(`http://10.91.37.212:4000/api/articulos/${ id }`)
@@ -54,14 +56,6 @@ export const UpdateArticle = () => {
 
     const handleFileChange = (e) => {
         formData.append('archivo', e.target.files[0]);
-        // let files = e.target.files;
-
-        // for (const file in files) {
-        //     console.log(file);
-        //     formData.append(`archivo${[file]}`, e.target.files[file]);
-        // }
-
-        // const { file } = archivo;
     }
 
     const handleSubmit = async(e) => {
@@ -76,6 +70,9 @@ export const UpdateArticle = () => {
             // Para actualizar la img
             fetch(`http://10.91.37.212:4000/api/uploads/articulos/${ id }`, {
                     method: 'PUT',
+                    headers: {
+                        'x-token': token
+                    },
                     body: formData
                 }).then( resp => resp.json())
                     .then( data => {
@@ -145,7 +142,6 @@ export const UpdateArticle = () => {
                     <input
                         type="file"
                         className="form form-control mb-3"
-                        multiple
                         name="archivo"
                         required
                         onChange={ handleFileChange }

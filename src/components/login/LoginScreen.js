@@ -48,13 +48,14 @@ export const LoginScreen = () => {
                 const action = {
                     type: types.login,
                     payload: {
-                        name: data.usuario.nombre
+                        name: data.usuario.nombre,
+                        apellido: data.usuario.apellido
                     }
                 }
         
                 dispatch( action );
         
-                navigate('/');
+                navigate('/articles');
             
             }else{
                 Swal.fire('Error', data.msg, 'error');

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router"
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { fetchConToken, fetchSinToken } from "../../helpers/fetch";
+import { fetchConToken } from "../../helpers/fetch";
 
 
 export const Article = () => {
@@ -110,7 +110,7 @@ export const Article = () => {
                 </button>
                 <Link 
                     className="btn btn-primary mx-2 my-2"
-                    to={`/update-articles/${ id }`}
+                    to={`/update-article/${ id }`}
                 >
                     Editar
                 </Link>

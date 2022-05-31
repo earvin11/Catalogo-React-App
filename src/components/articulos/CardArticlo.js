@@ -12,7 +12,7 @@ export const CardArticulo = ({ id, nombre, categoria, descripcion }) => {
                 <h6 className="card-text cursiva">{ categoria }</h6>
                 <p className="card-text">{ descripcion }</p>
 
-                <Link className="btn btn-outline-info" to={`/articles/${id}`}>
+                <Link className="btn btn-outline-info" to={`/article/${id}`}>
                     Mas...
                 </Link>
 

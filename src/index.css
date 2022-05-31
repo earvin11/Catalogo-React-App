@@ -78,3 +78,16 @@ h3 {
 
 }
 
+.dropdown-item {
+  /* padding: 2px 0px; */
+  text-decoration: none;
+  text-align: center;
+  font-size: 16px;
+}
+
+.dropdown-item:hover {
+  transition: 0.3s;
+  font-size: 17px;
+  /* background-color: rgba(254, 7, 7, 0.662); */
+}
+

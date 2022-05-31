@@ -8,7 +8,9 @@ import { PostArticulo } from "../components/articulos/PostArticulo"
 import { PutArchivo } from "../components/articulos/PutArchivo"
 import { UpdateArticle } from "../components/articulos/UpdateArticle"
 import { Navbar } from "../components/ui/Navbar"
-import { FormApp } from "../components/useState/FormApp"
+import { NewUser } from "../components/user/NewUser"
+import { UpdatePassword } from "../components/user/UpdatePassword"
+
 
 
 
@@ -21,14 +23,15 @@ export const DashboardRoutes = () => {
                 <Routes>
                     {/* <Route path="/" element={<GetUsers />} />
                     <Route path="form" element={<FormApp />} /> */}
-                    <Route path="/" element={ <GetArticles /> } />
+                    <Route path="/articles" element={ <GetArticles /> } />
                     <Route path="articles-category/:id" element={ <ArticlesByCategory /> } />
                     <Route path="article-by-name/" element={ <ArtcileByName /> } />
-                    <Route path="articles/:id" element={ <Article /> } />
-                    <Route path="post-articles" element={ <PostArticulo /> } />
+                    <Route path="article/:id" element={ <Article /> } />
+                    <Route path="post-article" element={ <PostArticulo /> } />
                     <Route path="put-archivo/:id" element={ <PutArchivo /> } />
-                    <Route path="update-articles/:id" element={ <UpdateArticle /> } />
-                    <Route path="register" element={ <FormApp /> } />
+                    <Route path="update-article/:id" element={ <UpdateArticle /> } />
+                    <Route path="register" element={ <NewUser /> } />
+                    <Route path="update-password" element={ <UpdatePassword /> } />
                 </Routes>
 
             </div>
