@@ -15,6 +15,8 @@ export const Article = () => {
 
     const [img, setImg] = useState({});
 
+    const [lote, setLote] = useState({});
+
     const { id } = useParams();
 
     useEffect( () => {
@@ -25,6 +27,12 @@ export const Article = () => {
         fetch(`http://10.91.37.212:4000/api/uploads/articulos/${ id }`)
         .then( ({ url }) => setImg({
             ...img,
+            url
+        }));
+
+        fetch(`http://10.91.37.212:4000/api/uploads/lotes/${ id }`)
+        .then( ({ url }) => setLote({
+            ...lote,
             url
         }));
 
@@ -78,21 +86,18 @@ export const Article = () => {
         <div className="row mt-5">
 
         <div className="col-4">
-                <img 
-                    src={ img.url }
-                    alt={ img.url }
-                    className="img-thumbnail animate__animated animate__fadeInLeft" 
-                />
                 {/* <img 
-                    src={ img.url }
-                    alt={ img.url }
+                    src={ lote.url }
+                    alt={ lote.url }
                     className="img-thumbnail animate__animated animate__fadeInLeft" 
                 />
+                <hr/> */}
                 <img 
                     src={ img.url }
                     alt={ img.url }
                     className="img-thumbnail animate__animated animate__fadeInLeft" 
-                /> */}
+                />
+                
             </div>
 
             <div className="col-8 animate__animated animate__fadeIn">
@@ -120,6 +125,12 @@ export const Article = () => {
                 >
                     Eliminar
                 </button>
+
+                {/* <img 
+                    src={ img.url }
+                    alt={ img.url }
+                    className="img-thumbnail animate__animated animate__fadeInLeft" 
+                /> */}
             </div>
 
         </div>

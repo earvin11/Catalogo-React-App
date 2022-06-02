@@ -87,7 +87,7 @@ export const PostArticulo = () => {
                         className="form form-control mb-3"
                         name="nombre"
                         required
-                        placeholder="Nombre"
+                        placeholder="Nùmero de lote"
                         onChange={ handleInputChange }
                         value={ nombre }
                         autoComplete="off"

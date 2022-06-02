@@ -6,7 +6,7 @@ import { Loader } from "../loader/Loader";
 
 
 
-export const PutArchivo = () => {
+export const PutLote = () => {
 
     const { id } = useParams();
 
@@ -20,6 +20,7 @@ export const PutArchivo = () => {
 
     const handleFileChange = (e) => {
         formData.append('archivo', e.target.files[0]); 
+
     }
     
     const handleSubmit = async(e) => {
@@ -27,7 +28,7 @@ export const PutArchivo = () => {
 
         setLoading(true);
 
-        fetch(`http://10.91.37.212:4000/api/uploads/articulos/${ id }`, {
+        fetch(`http://10.91.37.212:4000/api/uploads/lotes/${ id }`, {
                 method: 'PUT',
                 headers:{
                     'x-token': token
@@ -36,9 +37,8 @@ export const PutArchivo = () => {
             }).then( resp => resp.json())
                 .then( data => {
                     if( data.ok ) {
-                        const id = data.articulo._id;
-                
-                        navigate(`/put-lote/${ id }`);
+                        Swal.fire('','Trabajo realizado correctamente', 'success');
+                        navigate(-2);
                     
                     }else{
                         Swal.fire('Error', data.msg, 'error');
@@ -55,7 +55,7 @@ export const PutArchivo = () => {
                 ( loading )
                     ? <Loader />
                     : <form className="post" onSubmit={ handleSubmit }>
-                            <h2 className=" text-center badge bg-success my-3"> Subir imagen </h2>
+                            <h2 className=" text-center badge bg-success my-3"> Subir Historia Lote </h2>
                             <input
                                 className="form form-control mb-3"
                                 type="file"
