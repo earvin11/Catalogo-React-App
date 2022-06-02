@@ -14,17 +14,20 @@ export const PutArchivo = () => {
 
     const [loading, setLoading] = useState(false);
 
+    const [files, setFiles] = useState({});
+
     const formData = new FormData();
 
     const token = localStorage.getItem('token') || '';
 
     const handleFileChange = (e) => {
-        formData.append('archivo', e.target.files[0]);      
+        formData.append('archivo', e.target.files[0]); 
     }
-
     
     const handleSubmit = async(e) => {
         e.preventDefault();
+
+        console.log(files);
 
         setLoading(true);
 
@@ -33,7 +36,7 @@ export const PutArchivo = () => {
                 headers:{
                     'x-token': token
                 },
-                body: formData 
+                body: formData
             }).then( resp => resp.json())
                 .then( data => {
                     if( data.ok ) {
